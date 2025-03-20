@@ -1,0 +1,23 @@
+primary: true
+primaryRegion: ams3
+secondaryRegion: nyc1
+domain: ""
+dbSecretName: invincible-app-db
+
+replicaCount: 1
+
+image:
+  repository: ""
+  pullPolicy: Always
+  tag: "latest"
+
+nameOverride: ""
+fullnameOverride: ""
+
+resources:
+   limits:
+     cpu: 100m
+     memory: 256Mi
+   requests:
+     cpu: 100m
+     memory: 256Mi

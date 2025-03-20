@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "invincible-app.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: {{ .Values.domain }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "invincible-app.fullname" . }}
+            port:
+              number: 8080
+  - host: {{ printf "%s.%s" (ternary .Values.primaryRegion .Values.secondaryRegion .Values.primary) .Values.domain }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "invincible-app.fullname" . }}
+            port:
+              number: 8080

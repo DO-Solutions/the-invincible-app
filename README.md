@@ -14,5 +14,8 @@ The Node.js code for the Invincible App is universal for both locations, with da
 ## Failover Testing
 When the New York database fails — an outage that takes the longest to detect — the failover to Amsterdam completes in approximately 20 seconds. When the database comes back online, the failover back to New York takes about 50 seconds. Failover times are directly influenced by the health check intervals and thresholds of global and regional load balancers, which are configurable.
 
+## Deployment
+Details on how to deploy the Invincible App and reference architecture can be found in the [DEPLOY.md](./DEPLOY.md) file.
+
 ## Questions?
 [vprokopov@digitalocean.com](vprokopov@digitalocean.com)

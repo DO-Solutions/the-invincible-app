@@ -17,9 +17,10 @@ const dbHostRemote = process.env.DB_HOST_REMOTE;
 const dbPort = process.env.DB_PORT;
 const dbName = process.env.DB_NAME;
 const svcIpRemote = process.env.SVC_IP_REMOTE;
+const sslCert = process.env.DB_CA_CERT;
 
 // Read the SSL certificate
-const sslCert = fs.readFileSync('ca-certificate.crt');
+// const sslCert = fs.readFileSync('ca-certificate.crt');
 
 // Create connection pools for both databases with a 1-second timeout
 const poolLocal = new Pool({

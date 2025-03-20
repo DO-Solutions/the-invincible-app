@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "invincible-app.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "invincible-app.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "invincible-app.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "invincible-app.fullname" . }}
+    spec:
+      containers:
+        - name: {{ include "invincible-app.fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 3
+          env:
+          - name: REGION_LOCAL
+            value: {{ ternary .Values.primaryRegion .Values.secondaryRegion .Values.primary }}
+          - name: REGION_REMOTE
+            value: {{ ternary .Values.secondaryRegion .Values.primaryRegion .Values.primary }}
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.dbSecretName }}
+                key: USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.dbSecretName }}
+                key: PASSWORD
+          - name: DB_HOST_LOCAL
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.dbSecretName }}
+                key: {{ ternary "PRIMARY_HOST" "SECONDARY_HOST" .Values.primary }}
+          - name: DB_HOST_REMOTE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.dbSecretName }}
+                key: {{ ternary "SECONDARY_HOST" "PRIMARY_HOST" .Values.primary }}
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.dbSecretName }}
+                key: PORT
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.dbSecretName }}
+                key: DB_NAME
+          - name: DB_CA_CERT
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.dbSecretName }}
+                key: CA_CERT
+          - name: PORT
+            value: "8080"
+          - name: SVC_IP_REMOTE
+            value: {{ printf "%s.%s" (ternary .Values.secondaryRegion .Values.primaryRegion .Values.primary) .Values.domain }}
+
