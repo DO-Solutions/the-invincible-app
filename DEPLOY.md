@@ -1,6 +1,6 @@
 This file includes the details needed to deploy the Invincible App for yourself. This will require a DO account along with Terraform and way to build and publish a container.
 
-After the deployment, you will have all the components such as VPCs, databases, Kubernetes clusters, global load-balancing, and the application running in two regions. A new project will be created within your account 
+After the deployment, you will have all the components such as VPCs, databases, Kubernetes clusters, global load-balancing, and the application running in two regions. A new project will be created within your account. 
 
 # Prerequisites
 
