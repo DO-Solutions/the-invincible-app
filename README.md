@@ -19,3 +19,4 @@ Details on how to deploy the Invincible App and reference architecture can be fo
 
 ## Questions?
 [vprokopov@digitalocean.com](vprokopov@digitalocean.com)
+[jkeegan@digitalocean.com](jkeegan@digitalocean.com)
