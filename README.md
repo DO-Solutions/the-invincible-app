@@ -18,5 +18,5 @@ When the New York database fails — an outage that takes the longest to detect 
 Details on how to deploy the Invincible App and reference architecture can be found in the [DEPLOY.md](./DEPLOY.md) file.
 
 ## Questions?
-[vprokopov@digitalocean.com](vprokopov@digitalocean.com)
+[vprokopov@digitalocean.com](vprokopov@digitalocean.com)  
 [jkeegan@digitalocean.com](jkeegan@digitalocean.com)
