@@ -61,7 +61,7 @@ resource "helm_release" "ingress_nginx" {
   namespace  = kubernetes_namespace_v1.ingress_nginx.metadata[0].name
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
-  version    = "4.12.1"
+  version    = "4.12.2"
   values = [
     data.http.ingress_nginx_values.response_body
   ]
